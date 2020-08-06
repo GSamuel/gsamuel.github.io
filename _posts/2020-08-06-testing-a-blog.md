@@ -6,7 +6,7 @@ author: Gideon Hoogeveen
 date: '2020-08-06 16:46:23 +0530'
 category: kotlin
 thumbnail: /assets/img/posts/code.jpg
-keywords: kotlin, clean, stuff
+keywords: kotlin, test, blog
 permalink: /blog/testing-a-blog
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
@@ -22,6 +22,12 @@ end
 print_hi('Tom')
 #=> prints 'Hi, Tom' to STDOUT.
 {% endhighlight %}
+
+{% highlight kotlin %}
+fun main(args:Array<String>) {
+  println("Hello World")
+}
+{% endhighlight kotlin %}
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 

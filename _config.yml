@@ -1,4 +1,4 @@
-title: devlopr
+title: cleankotlin
 subtitle: A Jekyll Theme Built for Developers
 description: >- # this means to ignore newlines until "baseurl:"
   devlopr-jekyll is a Jekyll Theme Built For Developers
@@ -7,28 +7,28 @@ url: "https://gsamuel.github.io" # the base hostname & protocol for your site, e
 baseurl: "" # the subpath of your site, e.g. /blog
 
 urls:
-    - text: About Me
-      url: /about
+#    - text: About Me
+#      url: /about
     - text: Blog
       url: /blog
-    - text: Gallery
-      url: /gallery
-    - text: Shop
-      url : /shop
-    - text: Contact Me
-      url : /contact
-    - text: Styleguide
-      url: /styleguide
-    - text: Get Started
-      url: /get-started
+#    - text: Gallery
+#      url: /gallery
+#    - text: Shop
+#      url : /shop
+#    - text: Contact Me
+#      url : /contact
+#    - text: Styleguide
+#      url: /styleguide
+#    - text: Get Started
+#      url: /get-started
 
 # Edit these details
 
 author_logo: profile.png
-author: John Doe
-author_bio: Hi, my name is John Doe. I built this site using devlopr-jekyll :D
-author_email: "mail@sujaykundu.com"
-author_location: India
+author: Gideon Hoogeveen
+author_bio: Hi, my name is Gideon Hoogeveen. I talk about clean code in Kotlin
+author_email: "gideon_hoog@hotmail.com"
+author_location: The Netherlands
 author_website_url: "https://sujaykundu.com"
 typewrite-text: devlopr is a jekyll theme built for developers. You can edit this in _config.yml file
 
@@ -70,7 +70,7 @@ author_project_details:
 twitter_username: johndoe
 github_username:  sujaykundu777
 facebook_username: johndoe
-linkedin_username: johndoe
+linkedin_username: gideon-hoogeveen-86b60b3a
 behance_username: johndoe
 instagram_username: johndoe
 medium_username: johndoe
@@ -90,7 +90,7 @@ wakatime_username: sujaykundu777
 mailchimp_form_url: https://sujaykundu.us10.list-manage.com/subscribe/post?u=50bab1c85eae24ecfb0f68361&amp;id=3a2dd721d0
 
 # formspree (contact form)
-formspree_email: johndoe@gmail.com
+formspree_email: gideon_hoog@hotmail.com
 
 # syntax highlighter
 markdown: kramdown
