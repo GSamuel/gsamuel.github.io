@@ -220,6 +220,8 @@ class Box(val value:Int?) {
 }
 {% endhighlight kotlin %}
 
+There's no reason to use complex and confusing double negatives in your code. So do yourself us all a favor. **Don't not avoid double negations**.
+
 
 [inline-function]: https://refactoring.com/catalog/inlineFunction.html
 [playground]: https://play.kotlinlang.org/
