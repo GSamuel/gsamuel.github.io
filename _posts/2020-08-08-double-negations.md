@@ -13,7 +13,7 @@ permalink: /blog/double-negations
 Booleans are the bread and butter of decision making in most modern programming languages and in Kotlin this is no exception.
 We will discuss some ways to clean up your boolean logic and explore some best practices in giving good names to our binary friends.
 
-## Double negation are not not bad.
+## Double negations are not not bad.
 Beware of code that uses double negations. Double negations are hard to read and understand. Double negations significantly increase the amount of bugs and errors that can potentially hide in your code. Try the following exercise to better understand the problem.
 
 > Which number will be printed to the console given that the user is typing?
