@@ -11,10 +11,10 @@ permalink: /blog/double-negations
 ---
 
 Booleans are the bread and butter of decision making in most modern programming languages and in Kotlin this is no exception.
-We will discuss some ways to clean up your boolean logic and explore some best practices in giving good names to our binary friends.
+I will discuss with you some ways to clean up your boolean logic and you will explore some best practices in giving good positive names to our binary friends.
 
 ## Double negations are not not bad.
-You should not use double negations in your code, because they are hard to read and understand. They also significantly increase the amount of bugs and errors that can hide in your program. I invite you to try the following exercise to better understand why Double negatives form a problem.
+You should not use double negations in your code because they are hard to read and understand. They also significantly increase the amount of bugs and errors that can hide in your program. I invite you to try the following exercise to better understand why Double negatives form a problem.
 
 > Which numbers will be printed to the console?
 
