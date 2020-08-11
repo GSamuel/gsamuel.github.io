@@ -14,39 +14,35 @@ Booleans are the bread and butter of decision making in most modern programming 
 We will discuss some ways to clean up your boolean logic and explore some best practices in giving good names to our binary friends.
 
 ## Double negations are not not bad.
-Beware of code that uses double negations. Double negations are hard to read and understand. Double negations significantly increase the amount of bugs and errors that can potentially hide in your code. Try the following exercise to better understand the problem.
+You should not use double negations in your code, because they are hard to read and understand. They also significantly increase the amount of bugs and errors that can hide in your program. I invite you to try the following exercise to better understand why Double negatives form a problem.
 
-> Which number will be printed to the console given that the user is typing?
+> Which numbers will be printed to the console?
 
 {% highlight kotlin %}
-// Double negation
 val isNotTyping = false
+val isTyping = true
 
-fun doSomethingA() {
+fun main() {
+    doubleNegation()
+    singleNegation()
+    noNegation()
+}
+
+fun doubleNegation() {
   if(!isNotTyping)
     println(1)
   else
     println(2)
 }
-{% endhighlight kotlin %}
 
-{% highlight kotlin %}
-// Single negation
-val isNotTyping = false
-
-fun doSomethingB() {
+fun singleNegation() {
   if(isNotTyping)
     println(3)
   else
     println(4)
 }
-{% endhighlight kotlin %}
 
-{% highlight kotlin %}
-// No negation
-val isTyping = true
-
-fun doSomethingC() {
+fun noNegation() {
   if(isTyping)
     println(5)
   else
@@ -54,11 +50,17 @@ fun doSomethingC() {
 }
 {% endhighlight kotlin %}
 
-Given that the user is typing calling these methods will result in 1, 4 and 5.
+Most programmers take longer and make more mistakes interpreting the code that uses double negations compared to the code where less negations are used. This is why you should always try to write boolean variables and parameters in their positive form.
 
-In my experience most programmers take longer and make more mistakes reading the code that uses double negations compared to the code where less negations are used. This is why you should always strive to write boolean variables and parameters in their positive form.
+Here is the solution. Did you get it right?
 
-The same rule should be applied to methods which return a boolean.
+{% highlight kotlin %}
+1
+4
+5
+{% endhighlight kotlin %}
+
+Parameters and variables are not the only places where problematic usage of double negations can be found. Methods, that have a boolean as return type, suffer from the same problems.
 
 {% highlight kotlin %}
 fun isNotOdd(value:Int):Boolean {
@@ -76,7 +78,7 @@ fun isEven(value:Int):Boolean {
 
 ## Try to start positive
 
-If you really need the negative form of a method consider providing the positive part first and let the negative form call the positive form. Most of the time it is easier to implement the positive form anyway. Letting the negative form call the positive form has the added benefit of avoiding duplication and therefore limits the amount of code that has to be touched when requirements change.
+If you really need the negative form of a method consider providing the positive part first and let the negative form call the positive form. Most of the time it is easier to implement the positive form anyway. Letting the negative form call the positive form has the added benefit of avoiding duplication, which limits the amount of code that has to be touched when requirements change.
 
 {% highlight kotlin %}
 fun isNotDone():Boolean = !isDone()
@@ -86,7 +88,7 @@ fun isDone():Boolean = progress == 100
 
 ## Clean up existing code
 
-A lot of times you have to deal with code that has already been written by you or an other person. As per the Boy Scout Rule we should Leave our code better than we found it.
+Often you have to deal with code that has already been written by you or an other person. As per the Boy Scout Rule we should Leave our code better than we found it.
 
 Let's say you found this piece of code that deals with boxes containing integers.
 
@@ -199,7 +201,7 @@ class Box(val value:Int?) {
 }
 {% endhighlight kotlin %}
 
-If you don't want your logic to be around whether the box is empty you can still introduce a method using a positive form to see whether the box has a value.
+Instead of using a method named **isNotEmpty** to see whether a box is full it would probably make more sense to introduce a method called **isFull**. Often you have to search a little longer for names that better convey the right meaning.
 
 {% highlight kotlin %}
 fun main() {
@@ -208,14 +210,14 @@ fun main() {
 }
 
 private fun Box.print() {
-    if(hasValue()) //Replaced isEmpty() with hasValue()
+    if(isFull()) //Replaced isEmpty() with isFull()
     	println("box contains: ${value}") // Swap
     else
     	println("box is empty") // Swap
 }
 
 class Box(val value:Int?) {
-    fun hasValue() = !isEmpty() // Introduce method with positive form
+    fun isFull() = !isEmpty() // Introduced new method in its positive form
     fun isEmpty() = value == null
 }
 {% endhighlight kotlin %}
