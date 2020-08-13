@@ -8,7 +8,6 @@ category: kotlin
 thumbnail: /assets/img/posts/recipe.jpg
 keywords: reduce nesting, recipe, reduce complexity, refactor, early return, assertions
 permalink: /blog/follow-the-recipe
-preview: true
 ---
 
 ## Birthday turtle
