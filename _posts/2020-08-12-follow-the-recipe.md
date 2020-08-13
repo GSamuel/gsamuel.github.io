@@ -12,9 +12,9 @@ preview: true
 ---
 
 ## You like turtles?
-Today is your best friends birthday. Your friend is in love with turtles, so you decided to give one as a present. The problem is you have never seen a real turtle before. The only thing you know about turtles is that they can swim, have four legs and are reptiles. As you walk into the shop you see a lot of different species of animals. You decide to write a simple program to determine whether an animal is a turtle.
+Today is your best friends birthday and she asked you to buy a turtle as a present. The problem is you have never seen a real turtle before. The only thing you know about turtles is that they can swim, have four legs and are reptiles. As you walk into the petstore you see a lot of different species of animals. You decide to write a simple program to determine whether an animal is a turtle or not.
 
-The code that you come up with looks like this:
+The program you write looks something like this:
 
 {% highlight kotlin %}
 fun isTurtle() {
@@ -38,15 +38,13 @@ fun isTurtle() {
 {% endhighlight kotlin %}
 
 ## Maintenance nightmare
+After having checked all animals in the shop you are still left with two. They both can swim, have four legs and are reptiles.
 
-After running your code against all animals in the shop you still have a problem. There are still multiple animals that can swim, have four legs and are reptiles.
+You try to add one more condition, but because there are so many conditions already you find it hard to modify your program. You want to make sure you don't make any mistake. The horror if your present happens to be a crocodile and the guests will be eaten instead of the cake.
 
-You try to add more conditions to your program, but because there are already so many conditions it becomes much harder to add more without making a mistakes. The horror if your present happens to be a crocodile and the quests will be eaten instead of the birthdaycake.
-
-> What would you change to make this program more readable?
+> How would you change the code to make this program more readable?
 
 ## Refactor to a recipe
-
 The first thing you realize is that when an animal cannot swim it cannot be a turtle. Therefore we can safely take out te **canSwim()** condition and use an early return when the animal cannot swim.
 
 {% highlight kotlin %}
@@ -76,7 +74,7 @@ fun isTurtle() {
 }
 {% endhighlight kotlin %}
 
-After you have rewritten the checks on **canSwim()** it becomes clear you can do the same with the check on **hasFourLegs()** aswell.
+After you have rewritten the checks on **canSwim()** it becomes clear you can do the same with the check on **hasFourLegs()** as well.
 
 {% highlight kotlin %}
 fun isTurtle() {
@@ -99,7 +97,7 @@ fun isTurtle() {
 }
 {% endhighlight kotlin %}
 
-Eventhough the method is already becoming way more readable, you see no reason to stop now.
+You already cleaned up your code a lot. Only the check on **isReptile()** is left.
 
 {% highlight kotlin %}
 fun isTurtle() {
@@ -113,7 +111,7 @@ fun isTurtle() {
     if(!isReptile())
         return false
     
-    // When this part is reached, we know our animal can swim, has four legs and is a reptile and therefore  (probably) is a turtle.
+    // When this part is reached, we know our animal can swim, has four legs and is a reptile and therefore (probably) is a turtle.
 
     return true
 }
@@ -214,7 +212,7 @@ class Fridge {
 {% endhighlight kotlin %}
 
 ## Assertions
-To make this code cleaner you can use Kotlins **require(value:Boolean)** and **check(value:Boolen)** methods to assert that a certain condition has been met. Now your code becomes even more readable and elegant.
+To Clean up this code even further, you can use Kotlins **require(value:Boolean)** and **check(value:Boolen)** methods. These methods assert that a certain condition has been met and throw an IllegalArgumentException or IllegalStateException when it hasn't been. Let's see how our fridge looks like with the right checks. Notice that the condition has been negated and only throws an exception when the condition is false.
 
 {% highlight kotlin %}
 fun main() {
@@ -234,37 +232,39 @@ class Fridge {
     var isEmpty: Boolean = true
 
     fun open() {
-        check(isOpen) { "Unable to open an already opened fridge" }
+        check(!isOpen) { "Unable to open an already opened fridge" }
 
         isOpen = true
         println("Fridge opened")
     }
 
     fun close() {
-        check(!isOpen) {"Unable to close an already closed fridge"}
+        check(isOpen) { "Unable to close an already closed fridge" }
 
         isOpen = false
         println("Fridge closed")
     }
 
     fun putElephantInFridge() {
-        check(!isOpen) { "Unable to put elephant in a closed fridge" }
+        check(isOpen) { "Unable to put elephant in a closed fridge" }
 
-        check(!isEmpty) {"Unable to put elephant in fridge because there is no room left"}
+        check(isEmpty) { "Unable to put elephant in fridge because there is no room left" }
 
         isEmpty = false
         println("Elephant put in fridge")
     }
 
     fun takeElephantFromFridge() {
-        check(!isOpen) { "Unable to take an elephant from a close fridge" }
+        check(isOpen) { "Unable to take an elephant from a close fridge" }
 
-        check(isEmpty) { "There is no elephant to take out of the fridge" }
+        check(!isEmpty) { "There is no elephant to take out of the fridge" }
 
         isEmpty = true
         println("Elephant taken from fridge")
     }
 }
 {% endhighlight kotlin %}
+
+
 
 [state-machine]: https://en.wikipedia.org/wiki/Finite-state_machine
