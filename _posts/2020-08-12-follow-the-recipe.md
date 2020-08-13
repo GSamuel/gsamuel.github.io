@@ -5,13 +5,13 @@ summary: Reduce nesting by using early returns
 author: Gideon Hoogeveen
 date: '2020-08-12 22:25:07 +0200'
 category: kotlin
-thumbnail: /assets/img/posts/nesting.jpg
-keywords: reduce nesting, recipe, complexity, refactor, early return
+thumbnail: /assets/img/posts/recipe.jpg
+keywords: reduce nesting, recipe, reduce complexity, refactor, early return, assertions
 permalink: /blog/follow-the-recipe
 preview: true
 ---
 
-## You like turtles?
+## Birthday turtle
 Today is your best friends birthday and she asked you to buy a turtle as a present. The problem is you have never seen a real turtle before. The only thing you know about turtles is that they can swim, have four legs and are reptiles. As you walk into the petstore you see a lot of different species of animals. You decide to write a simple program to determine whether an animal is a turtle or not.
 
 The program you write looks something like this:
@@ -154,6 +154,8 @@ The general recipe is as follows:
 
 In the following example you can see this pattern at work. The fridge in this example is a simple [state machine][state-machine] and all illegal transitions will throw an exception.
 
+> You can try this code out by copying it to the [kotlin playground][playground]
+
 {% highlight kotlin %}
 fun main() {
     val fridge = Fridge()
@@ -265,6 +267,7 @@ class Fridge {
 }
 {% endhighlight kotlin %}
 
-
+Today you learned how to write software like you write a recipe. I hope it tastes good.
 
 [state-machine]: https://en.wikipedia.org/wiki/Finite-state_machine
+[playground]: https://play.kotlinlang.org/
