@@ -4,9 +4,9 @@ title:  "Double negatives should not not be avoided"
 summary: Why positive form first improves your boolean logic.
 author: Gideon Hoogeveen
 date: '2020-08-08 22:47:23 +0200'
-category: boolean
+category: [kotlin, refactoring, boolean]
 thumbnail: /assets/img/posts/boolean-true-or-false.jpg
-keywords: kotlin, boolean, true, false, double negation, double negatives
+keywords: kotlin, boolean, true, false, double negation, double negatives, code smell
 permalink: /blog/double-negations
 ---
 

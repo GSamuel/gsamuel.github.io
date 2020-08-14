@@ -4,9 +4,9 @@ title:  "Follow The Recipe"
 summary: Reduce nesting by using early returns
 author: Gideon Hoogeveen
 date: '2020-08-13 21:40:07 +0200'
-category: kotlin
+category: [kotlin, refactoring]
 thumbnail: /assets/img/posts/recipe.jpg
-keywords: reduce nesting, recipe, reduce complexity, refactor, early return, assertions
+keywords: reduce nesting, recipe, reduce complexity, refactor, early return, assertions, if else, conditions, elephant, fridge, turtle
 permalink: /blog/follow-the-recipe
 ---
 
