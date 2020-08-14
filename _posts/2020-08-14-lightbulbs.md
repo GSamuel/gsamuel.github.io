@@ -4,270 +4,234 @@ title:  "Lightbulbs"
 summary: Have you tried turning it off and on again?
 author: Gideon Hoogeveen
 date: '2020-08-13 21:40:07 +0200'
-category: kotlin
+category: [kotlin, refactoring]
 thumbnail: /assets/img/posts/recipe.jpg
 keywords: 
 permalink: /blog/lightbulbs
 preview: true
 ---
 
-## Birthday turtle
-Today is your best friends birthday and she asked you to buy a turtle as a present. The problem is you have never seen a real turtle before. The only thing you know about turtles is that they can swim, have four legs and are reptiles. As you walk into the petstore you see a lot of different species of animals. You decide to write a simple program to determine whether an animal is a turtle or not.
+## Lightbulbs
 
-The program you write looks something like this:
-
-{% highlight kotlin %}
-fun isTurtle() {
-    var isTurle:Boolean = false
-    if(canSwim()) {
-        if(hasFourLegs()) {
-            if(isReptile()) {
-                isTurtle = true
-            } else {
-                isTurtle = false
-            }
-        } else {
-            isTurtle = false
-        }
-    } else {
-        isTurle = false
-    }
-
-    return isTurtle
-}
-{% endhighlight kotlin %}
-
-## Maintenance nightmare
-After having checked all animals in the shop you are still left with two. They both can swim, have four legs and are reptiles.
-
-You try to add one more condition, but because there are so many conditions already you find it hard to modify your program. You want to make sure you don't make any mistake. The horror if your present happens to be a crocodile and the guests will be eaten instead of the cake.
-
-> How would you change the code to make this program more readable?
-
-## Refactor to a recipe
-The first thing you realize is that when an animal cannot swim it cannot be a turtle. Therefore we can safely take out te **canSwim()** condition and use an early return when the animal cannot swim.
-
-{% highlight kotlin %}
-fun isTurtle() {
-
-    // Check whether current animal can swim or not.
-    if(!canSwim()) 
-        return false // If the animal can't swim, we are done.
-
-    // From now on we know that we are dealing with an animal that can swim
-
-    var isTurle:Boolean = false
-
-    // Therefore we don't have to check whether the turtle can swim anymore, so we remove the check.
-
-    if(hasFourLegs()) {
-        if(isReptile()) {
-            isTurtle = true
-        } else {
-            isTurtle = false
-        }
-    } else {
-        isTurtle = false
-    }
-
-    return isTurtle
-}
-{% endhighlight kotlin %}
-
-After you have rewritten the checks on **canSwim()** it becomes clear you can do the same with the check on **hasFourLegs()** as well.
-
-{% highlight kotlin %}
-fun isTurtle() {
-
-    if(!canSwim())
-        return false
-
-    if(!hasFourLegs())
-        return false
-
-    var isTurle:Boolean = false
-
-    if(isReptile()) {
-        isTurtle = true
-    } else {
-        isTurtle = false
-    }
-
-    return isTurtle
-}
-{% endhighlight kotlin %}
-
-You already cleaned up your code a lot. Only the check on **isReptile()** is left.
-
-{% highlight kotlin %}
-fun isTurtle() {
-
-    if(!canSwim())
-        return false
-
-    if(!hasFourLegs())
-        return false
-
-    if(!isReptile())
-        return false
-    
-    // When this part is reached, we know our animal can swim, has four legs and is a reptile and therefore (probably) is a turtle.
-
-    return true
-}
-{% endhighlight kotlin %}
-
-## Adding new requirements
-
-Finally to distinguish the turtle from the crocodile you come up with one final check. Does the animal have a shell?
-Now that you have written your code like a recipe it becomes trivial for you to add this new condition. A recipe can easily be read from top to bottom.
-
-{% highlight kotlin %}
-fun isTurtle() {
-
-    if(!canSwim())
-        return false
-
-    if(!hasFourLegs())
-        return false
-
-    if(!isReptile())
-        return false
-
-    // Distinguish between turtles en crocodiles
-    if(!hasShell())
-        return false
-
-    return true
-}
-{% endhighlight kotlin %}
-
-
-## But, aren't early returns a bad thing?
-Some would argue that early returns make your code harder to understand because there are multiple places where you method could end. In my experience this is never a problem until your methods become very long and complex. When this happens you should probably deal with those long methods instead i.e. by reducing their length and complexity first.
-
-## The Recipe
-The general recipe is as follows:
-1. Try to do X
-2. If X didn't work -> stop
-3. continue with the assumption that X worked
-
-In the following example you can see this pattern at work. The fridge in this example is a simple [state machine][state-machine] and all illegal transitions will throw an exception.
-
-> You can try this code out by copying it to the [kotlin playground][playground]
+When we press the button the light turns on.
 
 {% highlight kotlin %}
 fun main() {
-    val fridge = Fridge()
-    fridge.open()
-    fridge.putElephantInFridge()
-    fridge.close()
-
-    fridge.open()
-    fridge.takeElephantFromFridge()
-    fridge.close()
+    pressButton()
 }
 
-class Fridge {
+fun pressButton() {
+    println("Button Pressed")
+    turnOnLight()
+}
 
-    var isOpen: Boolean = false
-    var isEmpty: Boolean = true
-
-    fun open() {
-        if(isOpen)
-            throw IllegalStateException("Unable to open an already opened fridge")
-
-        isOpen = true
-        println("Fridge opened")
-    }
-
-    fun close() {
-        if(!isOpen)
-            throw IllegalStateException("Unable to close an already closed fridge")
-
-        isOpen = false
-        println("Fridge closed")
-    }
-
-    fun putElephantInFridge() {
-        if(!isOpen)
-            throw IllegalStateException("Unable to put elephant in a closed fridge")
-
-        if(!isEmpty)
-            throw IllegalStateException("Unable to put elephant in fridge because there is no room left")
-
-        isEmpty = false
-        println("Elephant put in fridge")
-    }
-
-    fun takeElephantFromFridge() {
-        if(!isOpen)
-            throw IllegalStateException("Unable to take an elephant from a close fridge")
-
-        if(isEmpty)
-            throw IllegalStateException("There is no elephant to take out of the fridge")
-
-        isEmpty = true
-        println("Elephant taken from fridge")
-    }
+fun turnOnLight() {
+    println("Light turned on")
 }
 {% endhighlight kotlin %}
 
-## Assertions
-To Clean up this code even further, you can use Kotlins **require(value:Boolean)** and **check(value:Boolen)** methods. These methods assert that a certain condition has been met and throw an IllegalArgumentException or IllegalStateException when it hasn't been. Let's see how our fridge looks like with the right checks. Notice that the condition has been negated and only throws an exception when the condition is false.
+When we press the button again the light turns off.
+
+{% highlight kotlin %}
+
+var lightOn: Boolean = false
+
+fun main() {
+    pressButton()
+    pressButton()
+}
+
+fun pressButton() {
+    println("Button Pressed")
+    if(lightOn)
+        turnLightOff()
+    else
+        turnLightOn()
+}
+
+fun turnLightOn() {
+    lightOn = true
+    println("Light turned on")
+}
+
+fun turnLightOff() {
+    lightOn = false
+    println("Light turned off")
+}
+{% endhighlight kotlin %}
+
+## More requirements
+The only constant in software development is Change and to rub it in our face, Your Manager comes in with a new set of requirements.
+* Instead of 1 button, I want multiple buttons. These buttons could toggle the same light on or off or they could toggle a different light. A button only changes the state of a single lightbulb.
+
+## Our model can't handle these changes :O
+These new requirements cause a lot of problems for or existing code. We made the assumption that there will only ever be one button and only one Light. Just adding new methods and adding more state won't solve our problem, because it will make our code very complex very fast.
+
+## Refactor first then add the new features.
+Refactoring is the art of changing the way your code is organized without changing it's behaviour. In the past I did make the mistake of refactoring and incorporating new features at the same time.
+
+{% highlight kotlin %}
+
+val light = Light()
+
+fun main() {
+    pressButton()
+    pressButton()
+}
+
+fun pressButton() {
+    println("Button Pressed")
+    if(light.on)
+        light.turnOff()
+    else
+        light.turnOn()
+}
+
+class Light {
+    var on:Boolean = false
+    fun turnOn() { 
+        check(!on) { "Light is already on!" }
+        on = true
+        println("Light turned on")
+    }
+
+    fun turnOff() {
+        check(on) { "Light is already off!" }
+        on = false
+        println("Light turned off")
+    }
+}
+
+{% endhighlight kotlin %}
+
+When we run our code. It should behace exactly the same as before.
+
+Now let's extract our button to it's own model as well.
+
+{% highlight kotlin %}
+
+fun main() {
+    val light = Light()
+    val button = Button(light)
+
+    button.press()
+    button.press()
+}
+
+// A button operates on a light, so it needs a reference to the light.
+class Button(val light:Light) {
+    fun press() {
+        println("Button Pressed")
+        if(light.on)
+            light.turnOff()
+        else
+            light.turnOn()
+    }
+}
+
+class Light {
+    var on:Boolean = false
+    fun turnOn() { 
+        check(!on) { "Light is already on!" }
+        on = true
+        println("Light turned on")
+    }
+
+    fun turnOff() {
+        check(on) { "Light is already off!" }
+        on = false
+        println("Light turned off")
+    }
+}
+
+{% endhighlight kotlin %}
+
+## Code Smell
+Currenntly our button is responsible for turning the light on and off. The Button first asks a question to the light: Are you on or off? Depending on the lights answer the button will tell the light to witch state to switch. If the button makes a mistake, the light will throw an exception and tell the button It can't do as requested.
+
+When your code is asking a lot of questions to make a decision This can be an indicator of a design problem.
+
+> What would you change to make the interaction between the button and the light simpeler?
+
+## Classes are both data and behaviour
+Data and behaviour that acts upon that data are closely coupled and should reside close together. 
+
+By making the light responsible for and its state transitions we get a Light that is better.
 
 {% highlight kotlin %}
 fun main() {
-    val fridge = Fridge()
-    fridge.open()
-    fridge.putElephantInFridge()
-    fridge.close()
+    val light = Light()
+    val button = Button(light)
 
-    fridge.open()
-    fridge.takeElephantFromFridge()
-    fridge.close()
+    button.press()
+    button.press()
 }
 
-class Fridge {
+// A button operates on a light, so it needs a reference to the light.
+class Button(val light:Light) {
+    fun press() {
+        println("Button Pressed")
+        light.toggle()
+    }
+}
 
-    var isOpen: Boolean = false
-    var isEmpty: Boolean = true
+class Light {
+    var on:Boolean = false
 
-    fun open() {
-        check(!isOpen) { "Unable to open an already opened fridge" }
-
-        isOpen = true
-        println("Fridge opened")
+    fun toggle() {
+        if(on)
+            turnOff()
+        else
+            turnOn()
     }
 
-    fun close() {
-        check(isOpen) { "Unable to close an already closed fridge" }
-
-        isOpen = false
-        println("Fridge closed")
+    private fun turnOn() { 
+        check(!on) { "Light is already on!" }
+        on = true
+        println("Light turned on")
     }
 
-    fun putElephantInFridge() {
-        check(isOpen) { "Unable to put elephant in a closed fridge" }
-
-        check(isEmpty) { "Unable to put elephant in fridge because there is no room left" }
-
-        isEmpty = false
-        println("Elephant put in fridge")
-    }
-
-    fun takeElephantFromFridge() {
-        check(isOpen) { "Unable to take an elephant from a close fridge" }
-
-        check(!isEmpty) { "There is no elephant to take out of the fridge" }
-
-        isEmpty = true
-        println("Elephant taken from fridge")
+    private fun turnOff() {
+        check(on) { "Light is already off!" }
+        on = false
+        println("Light turned off")
     }
 }
 {% endhighlight kotlin %}
 
-Today you learned how to write software like you write a recipe. I hope it tastes good.
+Because we don't want **turnOn()** and **turnOff()** be directly available as methods on our light anymore, we can make them private. We can also reduce the complexity of the **toggle()** method and removing the **turnOn()** and **turnOff()** methods completely. If in the future there is a need to reintroduce these methods you can write them again, but for now they only add unnecessary complexity. If you are scared to throw code away remember that you always have version control. Also see [YAGNI][yagni].
 
-[state-machine]: https://en.wikipedia.org/wiki/Finite-state_machine
+{% highlight kotlin %}
+fun main() {
+    val light = Light()
+    val button = Button(light)
+
+    button.press()
+    button.press()
+}
+
+// A button operates on a light, so it needs a reference to the light.
+class Button(val light:Light) {
+    fun press() {
+        println("Button Pressed")
+        light.toggle()
+    }
+}
+
+class Light {
+    var on:Boolean = false
+
+    fun toggle() {
+        if(on)
+            println("Light turned off")
+        else
+            println("Light turned on")
+
+        on = !on
+    }
+}
+{% endhighlight kotlin %}
+
+
 [playground]: https://play.kotlinlang.org/
+[yagni]: https://enterprisecraftsmanship.com/posts/yagni-revisited/
