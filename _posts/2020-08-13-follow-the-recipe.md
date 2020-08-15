@@ -116,6 +116,8 @@ fun isTurtle() {
 }
 {% endhighlight kotlin %}
 
+
+
 ## Adding new requirements
 
 Finally to distinguish the turtle from the crocodile you come up with one final check. Does the animal have a shell?
@@ -141,6 +143,13 @@ fun isTurtle() {
 }
 {% endhighlight kotlin %}
 
+In this particular case, because we are dealing with boolean logic, you can make the code even more clean.
+
+{% highlight kotlin %}
+fun isTurtle() {
+    return canSwim() && hasFourLegs() && isReptile() && hasShell()
+}
+{% endhighlight kotlin %}
 
 ## But, aren't early returns a bad thing?
 Some would argue that early returns make your code harder to understand because there are multiple places where you method could end. In my experience this is never a problem until your methods become very long and complex. When this happens you should probably deal with those long methods instead i.e. by reducing their length and complexity first.
