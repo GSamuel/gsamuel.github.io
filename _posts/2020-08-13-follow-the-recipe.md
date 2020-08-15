@@ -143,7 +143,7 @@ fun isTurtle() {
 }
 {% endhighlight kotlin %}
 
-In this particular case, because we are dealing with boolean logic, you can make the code even more clean.
+Now you know the basics of rewriting a nested solution to a recipe. In this particular case there is an even more clean solution.
 
 {% highlight kotlin %}
 fun isTurtle() {
